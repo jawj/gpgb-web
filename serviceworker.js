@@ -1,6 +1,8 @@
 // https://developers.google.com/web/ilt/pwa/introduction-to-service-worker
 // @ts-ignore (can't assign FetchEvent type to event otherwise)
 self.addEventListener('fetch', function (event) {
+    if (event.request.method !== 'GET')
+        return false;
     event.respondWith(caches.open('gridpointgb').then(function (cache) {
         return cache.match(event.request).then(function (response) {
             return response !== null && response !== void 0 ? response : fetch(event.request).then(function (response) {
