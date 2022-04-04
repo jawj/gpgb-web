@@ -1,3 +1,4 @@
+// for dev: tsc index.ts serviceworker.ts && python3 -m http.server 8080
 /// <reference path='ostn02c.d.ts'/>
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('serviceworker.js')

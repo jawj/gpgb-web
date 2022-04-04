@@ -1,5 +1,4 @@
-// via: https://developers.google.com/web/ilt/pwa/introduction-to-service-worker
-
+// https://developers.google.com/web/ilt/pwa/introduction-to-service-worker
 // @ts-ignore (can't assign FetchEvent type to event otherwise)
 self.addEventListener('fetch', function (event) {
     event.respondWith(caches.open('gridpointgb').then(function (cache) {
