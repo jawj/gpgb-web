@@ -28,7 +28,7 @@ const
 
         } else {
           const
-            space = '&#8201;&#8201;&#8201;',
+            space = '<span class="thinsp">&#8201;</span>',
             spaceReplace = (s: string) => s.replace(/ /g, space),
             spaceDigits = (s: string) => s.replace(/\d(?=(\d{3})+\b)/g, '$&' + space),
             e = spaceDigits(String(Math.round(en.e))),
