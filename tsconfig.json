@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                                     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "lib": ["ES6", "DOM", "WebWorker"],                  /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+    "exactOptionalPropertyTypes": true,                  /* Interpret optional property types as written, rather than adding 'undefined'. */
+  }
+}
