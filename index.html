@@ -85,6 +85,10 @@
     #tetrad-copy {
       transition: .4s;
     }
+
+    .active {
+      transform: scale(1.33) translateX(2px);
+    }
   </style>
 </head>
 
@@ -92,10 +96,10 @@
   <div id="loading">Loading &hellip;</div>
   <div id="main" style="display: none;">
     <h2>Easting, northing (metres)</h2>
-    <div id="en"><span id="e"></span><br><span id="n"></span> <img id="en-copy" src="icon-copy.svg" width="20" height="20" alt="Copy">
+    <div id="en"><span id="e"></span><br><span id="n"></span> <img id="en-copy" src="icon-copy.svg" width="22" height="22" alt="Copy">
     <span id="plusminus"><br>&plusmn; <span id="accuracyPlusOne"></span>m</span></div>
-    <h2>Grid reference (10m)</h2><div id="gridref-div"><span id="gridref"></span> <img id="gridref-copy" src="icon-copy.svg" width="20" height="20" alt="Copy"></div>
-    <h2>Tetrad (2km)</h2><div id="tetrad-div"><span id="tetrad"></span> <img id="tetrad-copy" src="icon-copy.svg" width="20" height="20" alt="Copy"></div>
+    <h2>Grid reference (10m)</h2><div id="gridref-div"><span id="gridref"></span> <img id="gridref-copy" src="icon-copy.svg" width="22" height="22" alt="Copy"></div>
+    <h2>Tetrad (2km)</h2><div id="tetrad-div"><span id="tetrad"></span> <img id="tetrad-copy" src="icon-copy.svg" width="22" height="22" alt="Copy"></div>
     <h2>Updated</h2><div id="updated"></div>
   </div>
 

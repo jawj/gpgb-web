@@ -31,8 +31,8 @@ elMain.addEventListener('click', ev => {
 
   if (text === null) return;
   navigator.clipboard.writeText(text);
-  elTarget.style.transform = 'scale(1.25)';
-  setTimeout(() => elTarget.style.transform = '', 800);
+  elTarget.classList.add('active');
+  setTimeout(() => elTarget.classList.remove('active'), 800);
 });
 
 const OSTN02C = OSTN02CFactory(null, null, null, () => {

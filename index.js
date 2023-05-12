@@ -18,8 +18,8 @@ elMain.addEventListener('click', function (ev) {
     if (text === null)
         return;
     navigator.clipboard.writeText(text);
-    elTarget.style.transform = 'scale(1.25)';
-    setTimeout(function () { return elTarget.style.transform = ''; }, 800);
+    elTarget.classList.add('active');
+    setTimeout(function () { return elTarget.classList.remove('active'); }, 800);
 });
 var OSTN02C = OSTN02CFactory(null, null, null, function () {
     if (!OSTN02C.OSTN02Test(false)) {
