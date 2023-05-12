@@ -7,15 +7,25 @@ if ('serviceWorker' in navigator) {
   .catch(err => console.log('Service worker registration failed, error:', err));
 }
 
+const el = (sel: string) => document.querySelector(sel) as HTMLDivElement;
+
 const
-  main = document.querySelector('#main')!,
+  elMain =el('#main'),
+  elLoading = el('#loading'),
+  elE = el('#e'),
+  elN = el('#n'),
+  elAccuracyPlusOne = el('#accuracyPlusOne'),
+  elGridref = el('#gridref'),
+  elTetrad = el('#tetrad'),
+  elUpdated = el('#updated'),
+
   OSTN02C = OSTN02CFactory(null, null, null, () => {
     if (!OSTN02C.OSTN02Test(false)) {
-      main.innerHTML = 'Tests failed.';
+      elLoading.innerHTML = 'Tests failed.';
       return;
     };
 
-    main.innerHTML = 'Getting location &hellip;';
+    elLoading.innerHTML = 'Getting location &hellip;';
     navigator.geolocation.watchPosition(
       newPosition => {
         const
@@ -24,9 +34,15 @@ const
           en = OSTN02C.OSGB36EastingNorthingFromETRS89EastingNorthing(OSTN02C.ETRS89EastingNorthingFromETRS89LatLon(latLon));
 
         if (en.geoid === 0) {
-          main.innerHTML = 'Not in UK: no grid reference available';
+          elLoading.style.display = 'block';
+          elMain.style.display = 'none';
+
+          elLoading.innerHTML = 'Not in UK: no grid reference available';
 
         } else {
+          elMain.style.display = 'block';
+          elLoading.style.display = 'none';
+
           const
             space = '<span class="thinsp"> </span>',
             spaceReplace = (s: string) => s.replace(/ /g, space),
@@ -47,15 +63,20 @@ const
                 `${date.getFullYear()}-${d2(date.getMonth() + 1)}-${d2(date.getDate())} ` : '',
             displayDateTime = `${displayDate}${d2(date.getHours())}:${d2(date.getMinutes())}:${d2(date.getSeconds())}`;
 
-          main.innerHTML =
-            `<h2>Easting, northing (metres)</h2><div id="en"><span id="e">${e}</span><br><span id="n">${n}</span>` +
-            `<span id="plusminus"><br>&plusmn; ${Math.round(accuracy + 1)}m</span></div>` +
-            `<h2>Grid reference (10m)</h2><div id="gridref">${gridref}</div>` +
-            `<h2>Tetrad (2km)</h2><div id="tetrad">${tetrad}</div>` +
-            `<h2>Updated</h2><div id="updated">${displayDateTime}</div>`;
+          elE.innerHTML = e;
+          elN.innerHTML = n;
+          elAccuracyPlusOne.innerHTML = String(Math.round(accuracy + 1));
+          elGridref.innerHTML = gridref;
+          elTetrad.innerHTML = tetrad;
+          elUpdated.innerHTML = displayDateTime;
         }
       },
-      err => main.innerHTML = `There was a problem:<br>${err.message}`,
+      err => {
+        elMain.style.display = 'none';
+        elLoading.style.display = 'block';
+
+        elLoading.innerHTML = `There was a problem:<br>${err.message}`;
+      },
       { enableHighAccuracy: true },
     );
   });
