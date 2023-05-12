@@ -29,8 +29,8 @@
     }
 
     #en,
-    #gridref,
-    #tetrad {
+    #gridref-div,
+    #tetrad-div {
       margin: 0 0 1ex;
     }
 
@@ -79,6 +79,12 @@
       color: #88a;
       line-height: 1.2;
     }
+
+    #en-copy,
+    #gridref-copy,
+    #tetrad-copy {
+      transition: .4s;
+    }
   </style>
 </head>
 
@@ -86,10 +92,10 @@
   <div id="loading">Loading &hellip;</div>
   <div id="main" style="display: none;">
     <h2>Easting, northing (metres)</h2>
-    <div id="en"><span id="e"></span><br><span id="n"></span>
+    <div id="en"><span id="e"></span><br><span id="n"></span> <img id="en-copy" src="icon-copy.svg" width="20" height="20" alt="Copy">
     <span id="plusminus"><br>&plusmn; <span id="accuracyPlusOne"></span>m</span></div>
-    <h2>Grid reference (10m)</h2><div id="gridref"></div>
-    <h2>Tetrad (2km)</h2><div id="tetrad"></div>
+    <h2>Grid reference (10m)</h2><div id="gridref-div"><span id="gridref"></span> <img id="gridref-copy" src="icon-copy.svg" width="20" height="20" alt="Copy"></div>
+    <h2>Tetrad (2km)</h2><div id="tetrad-div"><span id="tetrad"></span> <img id="tetrad-copy" src="icon-copy.svg" width="20" height="20" alt="Copy"></div>
     <h2>Updated</h2><div id="updated"></div>
   </div>
 

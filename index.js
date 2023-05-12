@@ -1,13 +1,27 @@
 // for dev: tsc index.ts serviceworker.ts && python3 -m http.server 8080
 /// <reference path='ostn02c.d.ts'/>
-/// <reference path='mithril.d.ts'/>
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('serviceworker.js')
         .then(function (registration) { return console.log('Registration successful, scope is:', registration.scope); })
         .catch(function (err) { return console.log('Service worker registration failed, error:', err); });
 }
 var el = function (sel) { return document.querySelector(sel); };
-var elMain = el('#main'), elLoading = el('#loading'), elE = el('#e'), elN = el('#n'), elAccuracyPlusOne = el('#accuracyPlusOne'), elGridref = el('#gridref'), elTetrad = el('#tetrad'), elUpdated = el('#updated'), OSTN02C = OSTN02CFactory(null, null, null, function () {
+var elMain = el('#main'), elLoading = el('#loading'), elE = el('#e'), elN = el('#n'), elAccuracyPlusOne = el('#accuracyPlusOne'), elGridref = el('#gridref'), elTetrad = el('#tetrad'), elUpdated = el('#updated');
+elMain.addEventListener('click', function (ev) {
+    var elTarget = ev.target;
+    if (!elTarget)
+        return;
+    var text = elTarget.id === 'en-copy' ? "E ".concat(elE.innerText, " N ").concat(elN.innerText, " +/- ").concat(elAccuracyPlusOne.innerText, "m") :
+        elTarget.id === 'gridref-copy' ? elGridref.innerText :
+            elTarget.id === 'tetrad-copy' ? elTetrad.innerText :
+                null;
+    if (text === null)
+        return;
+    navigator.clipboard.writeText(text);
+    elTarget.style.transform = 'scale(1.25)';
+    setTimeout(function () { return elTarget.style.transform = ''; }, 800);
+});
+var OSTN02C = OSTN02CFactory(null, null, null, function () {
     if (!OSTN02C.OSTN02Test(false)) {
         elLoading.innerHTML = 'Tests failed.';
         return;
@@ -34,12 +48,6 @@ var elMain = el('#main'), elLoading = el('#loading'), elE = el('#e'), elN = el('
             elGridref.innerHTML = gridref;
             elTetrad.innerHTML = tetrad;
             elUpdated.innerHTML = displayDateTime;
-            // main.innerHTML =
-            //   `<h2>Easting, northing (metres)</h2><div id="en"><span id="e">${e}</span><br><span id="n">${n}</span>` +
-            //   `<span id="plusminus"><br>&plusmn; ${Math.round(accuracy + 1)}m</span></div>` +
-            //   `<h2>Grid reference (10m)</h2><div id="gridref">${gridref}</div>` +
-            //   `<h2>Tetrad (2km)</h2><div id="tetrad">${tetrad}</div>` +
-            //   `<h2>Updated</h2><div id="updated">${displayDateTime}</div>`;
         }
     }, function (err) {
         elMain.style.display = 'none';
